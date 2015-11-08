@@ -43,8 +43,8 @@ function prepareSliders() {
 
     $('#speedSlider').slider({
         max: 2,
-        min: 0.1,
-        step: 0.1,
+        min: 0.05,
+        step: 0.05,
         change: function (event, ui) {
             //odswiezenie czasu trwania pokolenia
             $('#stopTheGame').click();
@@ -53,7 +53,65 @@ function prepareSliders() {
     });
 
     $('#sizeSlider').slider("value", 20);
-    $('#speedSlider').slider("value", 1);
+    $('#speedSlider').slider("value", 0.7);
+}
+
+/**
+ * Przygotowuje menu z przykladowymi ukladami.
+ */
+function prepareExamplesMenu() {
+    var elementsList = [
+        //0
+        [
+            [0, 1, 1, 0, 1, 1, 0],
+            [0, 1, 1, 0, 1, 1, 0],
+            [0, 0, 1, 0, 1, 0, 0],
+            [1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1],
+            [1, 1, 0, 0, 0, 1, 1]
+        ],
+        //1
+        [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+    ];
+
+    $("#examplesMenu").on("change", function () {
+        var exampleId = this.value;
+        if (exampleId == "") {
+            return;
+        }
+
+        //wyczyszczenie planszy
+        //hack na programowe wywolanie akcji na sliderze rozmiaru
+        var $slider = $('#sizeSlider');
+        $slider.slider('option', 'change')(null, {value: $slider.slider('value')})
+
+        //ustawienie elementow na planszy
+        var element = elementsList[exampleId];
+        var width = element[0].length;
+        var height = element.length;
+
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                //policzenie przesuniecia w zaleznosci od aktualnego rozmiaru planszy
+                var new_i = ~~(i + $slider.slider('value') / 2 - height / 2);
+                var new_j = ~~(j + $slider.slider('value') * 3 / 4 - width / 2);
+
+                if (element[i][j] == 1) {
+                    $('#mainCell_' + new_i + '_' + new_j).click();
+                }
+            }
+        }
+    });
 }
 
 /**
@@ -130,6 +188,7 @@ function lifeLoop() {
  */
 $(document).ready(function () {
     prepareSliders();
+    prepareExamplesMenu();
     $('#startTheGame').click(lifeLoop)
     $('#oneStepTheGame').click(lifeCycle)
 });
