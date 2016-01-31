@@ -52,7 +52,7 @@ function prepareSliders() {
         }
     });
 
-    $('#sizeSlider').slider("value", 20);
+    $('#sizeSlider').slider("value", 30);
     $('#speedSlider').slider("value", 0.7);
 }
 
