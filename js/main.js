@@ -1,5 +1,5 @@
-/**
- * Tworzy glowna tabele zycia.
+﻿/**
+ * Tworzy głównaą tabelę życia.
  */
 function createMainTable(rows, cells) {
     var table = $('<table>').addClass('mainTable');
@@ -21,7 +21,7 @@ function createMainTable(rows, cells) {
 }
 
 /**
- * Wowylane po nacisnieciu jednej kratki zycia.
+ * Wowyłane po naciśnieciu jednej kratki życia.
  */
 function onCellClick() {
     $(this).toggleClass("selected notSelected")
@@ -57,7 +57,7 @@ function prepareSliders() {
 }
 
 /**
- * Przygotowuje menu z przykladowymi ukladami.
+ * Przygotowuje menu z przykładowymi układami.
  */
 function prepareExamplesMenu() {
     var elementsList = [
@@ -81,6 +81,19 @@ function prepareExamplesMenu() {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ],
+        //2
+        [
+            [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+            [1, 1, 0, 1, 1, 1, 1, 0, 1, 1],
+            [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+        ],
+        //3
+        [
+            [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0],
+            [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1],
+            [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]
         ]
     ];
 
@@ -115,7 +128,7 @@ function prepareExamplesMenu() {
 }
 
 /**
- * Przygotowuje komorki do jednej petli zycia.
+ * Przygotowuje komórki do jednej pętli życia.
  */
 function lifeCycleProcess() {
     var cellsToClick = [];
@@ -158,7 +171,7 @@ function lifeCycleProcess() {
 }
 
 /**
- * Jeden cykl życia komorek.
+ * Jeden cykl życia komórek.
  */
 function lifeCycle() {
     var cellsToClick = lifeCycleProcess();
@@ -170,7 +183,7 @@ function lifeCycle() {
 }
 
 /**
- * Petla zycia.
+ * Pętla życia.
  */
 function lifeLoop() {
     var intervalId = window.setInterval(function () {
@@ -184,7 +197,7 @@ function lifeLoop() {
 }
 
 /**
- * Rozpoczecie gry, przygotowanie planszy.
+ * Rozpoczęcie gry, przygotowanie planszy.
  */
 $(document).ready(function () {
     prepareSliders();
